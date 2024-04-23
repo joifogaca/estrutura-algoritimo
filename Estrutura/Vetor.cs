@@ -10,17 +10,14 @@ namespace estrutura_algoritimo.Estrutura
     {
         private string[] array;
 
-        private int posicaoAtual;
-        public Vetor(int _tamanho)
+        private int tamanho;
+        public Vetor(int capacidade)
         {
-            this.posicaoAtual = 0;
-            array = new string[_tamanho];  
+            this.tamanho = 0;
+            array = new string[capacidade];  
         }
 
-        public int Tamanho()
-        {
-            return this.posicaoAtual;
-        }
+
 
         public override string ToString()
         {
@@ -28,7 +25,7 @@ namespace estrutura_algoritimo.Estrutura
 
             // 0 1 2 3 4 5 6 = tamanho é 5
             // B C E F G + +
-            for (int i = 0;i < this.Tamanho() -1; i++)
+            for (int i = 0;i < tamanho -1; i++)
             {
                
                 sb.Append(array[i]);
@@ -36,9 +33,8 @@ namespace estrutura_algoritimo.Estrutura
 
             }
 
-            if (Tamanho() > 0) { 
-             sb.Append(",");
-                sb.Append(array[Tamanho() -1]);
+            if (tamanho > 0) { 
+                sb.Append(array[tamanho - 1]);
             }
 
             sb.Append("]");
@@ -48,12 +44,34 @@ namespace estrutura_algoritimo.Estrutura
             return sb.ToString();
         }
 
-        public Boolean Adicionar(string value) 
-        { 
-            if(posicaoAtual < array.Length)
+        public Boolean Adicionar(string value, int posicao) {
+
+            if(!(posicao >= 0 && posicao < tamanho))
             {
-                array[posicaoAtual] = value;
-                posicaoAtual++;
+                throw new ArgumentException("Posição Inválida!");
+            }
+
+            for (int i = tamanho; i >= posicao; i--) {
+                this.array[i + 1] = this.array[i];
+            }
+
+            this.array[posicao] = value;
+            this.tamanho++;
+
+            return true;
+        }
+
+        public Boolean Adicionar(string value) 
+        {
+            if (value == null)
+            {
+                return false;
+            } 
+
+            if (tamanho < array.Length)
+            {
+                array[tamanho] = value;
+                tamanho++;
                 return true;
             }
             else
@@ -64,7 +82,7 @@ namespace estrutura_algoritimo.Estrutura
         }
 
         public String GetByIndex(int index) {
-            if (index < 0 || index <= Tamanho())
+            if (index < 0 || index <= tamanho)
             {
                 throw new ArgumentException("Posição Inválida!");
             }
@@ -73,7 +91,7 @@ namespace estrutura_algoritimo.Estrutura
         }
 
         public int GetPositionBy(string element) {
-        for (int i = 0; i < Tamanho(); i++) {
+        for (int i = 0; i < tamanho; i++) {
                 if (element == array[i]) { 
                 return i;
                 }
