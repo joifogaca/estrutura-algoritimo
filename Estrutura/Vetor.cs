@@ -98,5 +98,38 @@ namespace estrutura_algoritimo.Estrutura
             }
         return -1;
         }
+
+        // B G D E F
+        //0 1 2 3 4
+        public void removeAt(int pos) {
+
+            if (!(pos >= 0 && pos < tamanho))
+            {
+                throw new ArgumentException("Posição Inválida!");
+            }
+
+            for (int i = pos; i < tamanho; i++) {
+                this.array[i] = this.array[i + 1];
+            }
+
+            this.tamanho--;
+
+        }
+
+        
+
+        public void remove(string element) { 
+        
+            int pos = this.GetPositionBy(element);
+
+            if(pos < 0)
+            {
+                throw new ArgumentException("Elemento" +  element + "não existe no vetor");
+            }
+
+            this.removeAt(pos);
+        }
+
+
     }
 }

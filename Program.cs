@@ -17,3 +17,17 @@ Console.WriteLine(vetor.ToString());
 vetor.Adicionar("E", 4);
 
 Console.WriteLine(vetor.ToString());
+
+Console.WriteLine("Testar Remove");
+
+Console.WriteLine("Remove posição: 2 = C");
+vetor.removeAt(2);
+
+Console.WriteLine("VETOR apos remoção posição: 2 = C");
+Console.WriteLine(vetor.ToString());
+
+Console.WriteLine("Remove elemento F");
+vetor.remove("F");
+
+Console.WriteLine("VETOR apos remoção F");
+Console.WriteLine(vetor.ToString());
