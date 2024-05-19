@@ -6,19 +6,29 @@ using System.Threading.Tasks;
 
 namespace estrutura_algoritimo.Estrutura
 {
- 
-    public class VetorObejct
+    public class VetorGenerico<T>
     {
-        private Object[] array;
+        private T[] elementos;
 
         private int tamanho;
-        public VetorObejct(int capacidade)
+        public VetorGenerico(int capacidade)
         {
             this.tamanho = 0;
-            array = new Object[capacidade];
+            elementos = new T[capacidade];
         }
 
-
+        private void aumentaCapacidade()
+        {
+            if (this.tamanho == this.elementos.Length)
+            {
+                T[] elementosNovos = new T[this.elementos.Length * 2];
+                for (int i = 0; i < this.elementos.Length; i++)
+                {
+                    elementosNovos[i] = this.elementos[i];
+                }
+                this.elementos = elementosNovos;
+            }
+        }
 
         public override string ToString()
         {
@@ -29,14 +39,14 @@ namespace estrutura_algoritimo.Estrutura
             for (int i = 0; i < tamanho - 1; i++)
             {
 
-                sb.Append(array[i]);
+                sb.Append(elementos[i]);
                 sb.Append(",");
 
             }
 
             if (tamanho > 0)
             {
-                sb.Append(array[tamanho - 1]);
+                sb.Append(elementos[tamanho - 1]);
             }
 
             sb.Append("]");
@@ -46,22 +56,9 @@ namespace estrutura_algoritimo.Estrutura
             return sb.ToString();
         }
 
-        private void aumentaCapacidade()
-        {
-            if (this.tamanho == this.array.Length)
-            {
-                Object[] elementosNovos = new object[this.array.Length * 2];
-                for (int i = 0; i < this.array.Length; i++)
-                {
-                    elementosNovos[i] = this.array[i];
-                }
-                this.array = elementosNovos;
-            }
-        }
-        public Boolean Adicionar(Object value, int posicao)
+        public Boolean Adicionar(T value, int posicao)
         {
             this.aumentaCapacidade();
-
             if (!(posicao >= 0 && posicao < tamanho))
             {
                 throw new ArgumentException("Posição Inválida!");
@@ -69,16 +66,16 @@ namespace estrutura_algoritimo.Estrutura
 
             for (int i = tamanho; i >= posicao; i--)
             {
-                this.array[i + 1] = this.array[i];
+                this.elementos[i + 1] = this.elementos[i];
             }
 
-            this.array[posicao] = value;
+            this.elementos[posicao] = value;
             this.tamanho++;
 
             return true;
         }
 
-        public Boolean Adicionar(Object value)
+        public Boolean Adicionar(T value)
         {
             this.aumentaCapacidade();
             if (value == null)
@@ -86,9 +83,9 @@ namespace estrutura_algoritimo.Estrutura
                 return false;
             }
 
-            if (tamanho < array.Length)
+            if (tamanho < elementos.Length)
             {
-                array[tamanho] = value;
+                elementos[tamanho] = value;
                 tamanho++;
                 return true;
             }
@@ -106,14 +103,15 @@ namespace estrutura_algoritimo.Estrutura
                 throw new ArgumentException("Posição Inválida!");
             }
 
-            return array[index];
+            return elementos[index];
         }
 
-        public int GetPositionBy(Object element)
+        public int GetPositionBy(T element)
         {
+           
             for (int i = 0; i < tamanho; i++)
             {
-                if (element == array[i])
+                if ((object)element == (object)elementos[i])
                 {
                     return i;
                 }
@@ -133,7 +131,7 @@ namespace estrutura_algoritimo.Estrutura
 
             for (int i = pos; i < tamanho; i++)
             {
-                this.array[i] = this.array[i + 1];
+                this.elementos[i] = this.elementos[i + 1];
             }
 
             this.tamanho--;
@@ -142,7 +140,7 @@ namespace estrutura_algoritimo.Estrutura
 
 
 
-        public void remove(Object element)
+        public void remove(T element)
         {
 
             int pos = this.GetPositionBy(element);
@@ -154,7 +152,6 @@ namespace estrutura_algoritimo.Estrutura
 
             this.removeAt(pos);
         }
-
 
     }
 }
