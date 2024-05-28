@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using estrutura_algoritimo.Estrutura;
 using estrutura_algoritimo.Model;
+using System.Collections;
 
 
 Vetor vetor = new Vetor(10);
@@ -60,3 +61,46 @@ Console.WriteLine(vetorO.ToString());
 
 Console.WriteLine("Comparando valor do vetor com valor add, são iguais");
 Console.WriteLine(vetorO.GetByIndex(1).Equals(c2));
+
+Console.WriteLine("Classe Nativa List C#");
+
+List<String> arrayList = new List<String>(5);
+arrayList.Add("A");
+arrayList.Add("B");
+arrayList.Add("E");
+
+Console.WriteLine(string.Join(", ", arrayList));
+
+arrayList.Insert(2, "C");
+
+Console.WriteLine(string.Join(", ", arrayList));
+
+string element = "A";
+Console.WriteLine(element);
+Console.WriteLine(string.Concat(element, arrayList.IndexOf(element)));
+if (arrayList.Contains(element))
+{
+    Console.WriteLine(string.Concat("element exist in Array: ", element));
+}
+else {
+    Console.WriteLine(string.Concat("element doen´t exist in Array: ", element));
+}
+
+string element1 = "G";
+Console.WriteLine(element1);
+Console.WriteLine(string.Concat(element1, arrayList.IndexOf(element1)));
+if (arrayList.Contains(element))
+{
+    Console.WriteLine(string.Concat("element exist in Array: ", element1));
+}
+else
+{
+    Console.WriteLine(string.Concat("element doen´t exist in Array: ", element1));
+}
+
+arrayList.Remove("A");
+arrayList.Remove("C");
+Console.WriteLine(string.Join(", ", arrayList));
+Console.WriteLine(arrayList.Count);
+
+
